@@ -60,33 +60,6 @@ public class A1List extends List {
         return flag;
     }
 
-    // private A1List helperFind(A1List node, int k, int drn, boolean exact) {
-    // if (node.next == null || node.prev == null)
-    // return null;
-    // else if (exact ? node.key == k : node.key >= k)
-    // return node;
-    // if (drn == 0)
-    // return helperFind(node.prev, k, 0, exact);
-    // return helperFind(node.next, k, 1, exact);
-    // }
-
-    // public A1List Find(int k, boolean exact) {
-
-    // if (exact ? this.key == k : this.key >= k)
-    // return this;
-
-    // A1List left = helperFind(this, k, 0, exact);
-    // A1List right = helperFind(this, k, 1, exact);
-
-    // if (left == null && right == null)
-    // return null;
-    // else if (left != null)
-    // return left;
-    // else
-    // return right;
-
-    // }
-
     private A1List helperFind(A1List node, int k, boolean exact) {
         if (node.next == null || node.prev == null)
             return null;
