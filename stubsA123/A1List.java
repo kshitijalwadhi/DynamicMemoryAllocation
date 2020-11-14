@@ -177,12 +177,30 @@ public class A1List extends List {
         if (checkCycle(cur, 1) || checkCycle(cur, 0))
             return false;
 
-        // check if node.prev.next == node for all nodes
+        // check if any node other than sentinel has null pointer in prev or next
 
-        while (!checkSentinel(cur))
+        // empty list case
+        if ((cur.next == null && cur.prev.prev == null) || (cur.prev == null && cur.next.next == null)) {
+        }
+        // cur on header
+        else if (cur.prev == null) {
+            if (checkSentinel(cur))
+                cur = cur.next;
+            else
+                return false;
+        }
+        // cur on trailer or in between
+        else {
+            while (cur.prev.prev != null) {
+                cur = cur.prev;
+            }
             cur = cur.prev;
+        }
+        if (!checkSentinel(cur))
+            return false;
 
-        cur = cur.next;
+        // check if node.next.prev == node for all nodes
+
         while (!checkSentinel(cur)) {
             if (cur.next.prev != cur)
                 return false;
