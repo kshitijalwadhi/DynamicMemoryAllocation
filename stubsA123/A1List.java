@@ -42,12 +42,18 @@ public class A1List extends List {
         return false;
     }
 
+    // checked
     public boolean Delete(Dictionary d) {
 
         boolean flag = false;
 
         A1List cur = this.getFirst();
 
+        // no element in list case
+        if (cur == null)
+            return false;
+
+        // for all other cases
         while (cur.next.next != null) {
             if (match(d, cur)) {
                 cur.prev.next = cur.next;
