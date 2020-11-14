@@ -22,7 +22,10 @@ public class A1List extends List {
         tailSentinel.prev = this;
     }
 
+    // pending doubt of corner case
     public A1List Insert(int address, int size, int key) {
+
+        // do we need to handle that case when current node is the tail node?
 
         A1List temp = new A1List(address, size, key);
         temp.next = this.next;
@@ -32,6 +35,7 @@ public class A1List extends List {
         return temp;
     }
 
+    // checked
     private boolean match(Dictionary d, A1List node) {
         if (d.key == node.key && d.address == node.address && d.size == node.size)
             return true;
@@ -73,12 +77,21 @@ public class A1List extends List {
         return helperFind(cur, k, exact);
     }
 
+    // checked
     public A1List getFirst() {
 
         A1List cur = this;
+
+        // empty list case
+        if ((cur.next == null && cur.prev.prev == null) || (cur.prev == null && cur.next.next == null))
+            return null;
+
+        // cur on header
         if (cur.prev == null) {
             cur = cur.next;
-        } else {
+        }
+        // cur on trailer or in between
+        else {
             while (cur.prev.prev != null) {
                 cur = cur.prev;
             }
