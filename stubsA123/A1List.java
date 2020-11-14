@@ -64,16 +64,23 @@ public class A1List extends List {
         return flag;
     }
 
+    // checked
     private A1List helperFind(A1List node, int k, boolean exact) {
-        if (node.next == null || node.prev == null)
+        // reached sentinel
+        if (node.next == null)
             return null;
+        // if matched
         else if (exact ? node.key == k : node.key >= k)
             return node;
+        // recursed to next node
         return helperFind(node.next, k, exact);
     }
 
+    // checked
     public A1List Find(int k, boolean exact) {
         A1List cur = this.getFirst();
+        if (cur == null)
+            return null;
         return helperFind(cur, k, exact);
     }
 
@@ -96,7 +103,6 @@ public class A1List extends List {
                 cur = cur.prev;
             }
         }
-
         return cur;
     }
 
@@ -112,9 +118,11 @@ public class A1List extends List {
         if (cur.next.next != null) {
             return cur.next;
         }
+        // empty list
         return null;
     }
 
+    // checked
     private boolean checkSentinel(A1List node) {
         if ((node.prev == null || node.next == null) && (node.key == -1 && node.address == -1 && node.size == -1))
             return true;
