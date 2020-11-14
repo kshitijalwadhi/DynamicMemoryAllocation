@@ -100,10 +100,15 @@ public class A1List extends List {
         return cur;
     }
 
+    // checked
     public A1List getNext() {
 
         A1List cur = this;
 
+        // if cur on trailer
+        if (cur.next == null)
+            return null;
+        // all other cases
         if (cur.next.next != null) {
             return cur.next;
         }
