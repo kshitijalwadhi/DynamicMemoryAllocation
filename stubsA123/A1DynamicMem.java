@@ -49,7 +49,7 @@ public class A1DynamicMem extends DynamicMem {
         allocBlk.Delete(temp);
         freeBlk.Insert(temp.address, temp.size, temp.size);
 
-        return temp.size;
+        return 0;
     }
 
     private void status() {
