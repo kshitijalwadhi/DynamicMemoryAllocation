@@ -62,10 +62,12 @@ public class A1List extends List {
             }
             cur = cur.next;
         }
-        if (match(d, cur)) {
-            cur.prev.next = cur.next;
-            cur.next.prev = cur.prev;
-            flag = true;
+        if (!checkSentinel(cur)) {
+            if (match(d, cur)) {
+                cur.prev.next = cur.next;
+                cur.next.prev = cur.prev;
+                flag = true;
+            }
         }
         return flag;
     }

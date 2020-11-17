@@ -42,13 +42,12 @@ public class A1DynamicMem extends DynamicMem {
     }
 
     public int Free(int startAddr) {
-
         Dictionary temp = allocBlk.Find(startAddr, true);
         if (temp == null)
             return -1;
+        // change allocBlk to temp as already have this
         allocBlk.Delete(temp);
         freeBlk.Insert(temp.address, temp.size, temp.size);
-
         return 0;
     }
 
