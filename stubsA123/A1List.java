@@ -54,20 +54,14 @@ public class A1List extends List {
             return false;
 
         // for all other cases
-        while (cur.next.next != null) {
+        while (cur.next != null) {
             if (match(d, cur)) {
                 cur.prev.next = cur.next;
                 cur.next.prev = cur.prev;
                 flag = true;
+                break;
             }
             cur = cur.next;
-        }
-        if (!checkSentinel(cur)) {
-            if (match(d, cur)) {
-                cur.prev.next = cur.next;
-                cur.next.prev = cur.prev;
-                flag = true;
-            }
         }
         return flag;
     }
