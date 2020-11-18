@@ -7,8 +7,8 @@ if(choose == 1):
     filename1 = input("input file: ")
     filename2 = input("Output file: ")
 else:
-    filename1 = "ans2.txt"
-    filename2 = "newoutput.txt"
+    filename1 = "answer_20.txt"
+    filename2 = "newoutput1.txt"
 
 file1 = open(filename1).readlines()
 
@@ -51,6 +51,7 @@ elif len(file1) < len(file2):
 
 
 else:
+    count = 0
     print("Length Of File is ", filename1, "Equals",
           filename2, len(file1), "==", len(file2))
     n = 0
@@ -59,5 +60,7 @@ else:
             print("Not Match:", "Line :", n + 1, filename1,
                   ":", line, "|", filename2, ":", file2_line[n])
             n += 1
+            count += 1
         else:
             n += 1
+    print(count)
