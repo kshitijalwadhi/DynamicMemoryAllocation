@@ -206,29 +206,4 @@ public class A1List extends List {
         return true;
     }
 
-    // everything below for testing
-
-    public static void main(String[] args) {
-        A1List temp = new A1List();
-        temp = temp.Insert(1, 1, 1);
-        temp = temp.Insert(2, 2, 2);
-        temp = temp.Insert(3, 3, 3);
-        temp = temp.Insert(4, 4, 4);
-
-        Dictionary item = new A1List(4, 4, 4);
-        boolean work = temp.Delete(item);
-        System.out.println(work);
-
-        System.out.println(temp.key);
-
-        int count = 0;
-        for (A1List d = temp.getFirst(); d != null; d = d.getNext())
-            count++;
-        System.out.println(count);
-
-        A1List search = temp.Find(2, true);
-        System.out.println(search);
-
-        System.out.println(temp.sanity());
-    }
 }
