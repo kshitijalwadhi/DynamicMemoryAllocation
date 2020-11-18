@@ -26,6 +26,8 @@ public class A1DynamicMem extends DynamicMem {
     // (A1List.java).
 
     public int Allocate(int blockSize) {
+        if (blockSize == 0)
+            return -1;
         Dictionary temp = freeBlk.Find(blockSize, false);
         if (temp == null)
             return -1;

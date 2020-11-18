@@ -7,7 +7,7 @@ if(choose == 1):
     filename1 = input("input file: ")
     filename2 = input("Output file: ")
 else:
-    filename1 = "bhavukout.txt"
+    filename1 = "ans2.txt"
     filename2 = "newoutput.txt"
 
 file1 = open(filename1).readlines()
