@@ -59,8 +59,43 @@ public class BSTree extends Tree {
         return temp;
     }
 
+    private BSTree deleteHelper(BSTree node, Dictionary e) {
+        if (node == null)
+            return null;
+        if (e.key < node.key) {
+            BSTree leftChild = deleteHelper(node.left, e);
+            node.left = leftChild;
+            leftChild.parent = node;
+        } else if (e.key > node.key) {
+            BSTree rightChild = deleteHelper(node.right, e);
+            node.right = rightChild;
+            rightChild.parent = node;
+        } else {
+            if (e.size == node.size && e.address == e.address) {
+                if (node.left == null)
+                    return node.right;
+                else if (node.right == null)
+                    return node.left;
+
+                BSTree succ = node.getNext();
+                node.address = succ.address;
+                node.key = succ.key;
+                node.size = succ.size;
+
+                BSTree newRightChild = deleteHelper(node.right, succ);
+                node.right = newRightChild;
+                newRightChild.parent = node;
+            }
+        }
+        return node;
+    }
+
     public boolean Delete(Dictionary e) {
-        return false;
+        BSTree cur = getSentinel(this);
+        cur = cur.right;
+        if (cur == null)
+            return false;
+        return deleteHelper(cur, e) == null ? false : true;
     }
 
     public BSTree Find(int key, boolean exact) {
@@ -122,6 +157,14 @@ public class BSTree extends Tree {
         return false;
     }
 
+    private void preOrder(BSTree node) {
+        if (node == null)
+            return;
+        System.out.print(node.key + " ");
+        preOrder(node.left);
+        preOrder(node.right);
+    }
+
     public static void main(String[] args) {
         BSTree temp = new BSTree();
         temp.Insert(5, 0, 5);
@@ -130,14 +173,12 @@ public class BSTree extends Tree {
         temp.Insert(2, 0, 2);
         temp.Insert(4, 0, 4);
         temp.Insert(1, 0, 1);
+        temp.Insert(7, 0, 7);
         temp.Insert(8, 0, 8);
-        temp.Insert(9, 0, 9);
-        int test = temp.getFirst().getNext().address;
-        System.out.println(test);
-        BSTree store = temp.Find(7, false);
-        if (store == null)
-            System.out.println("Not found");
-        else
-            System.out.println(store.key);
+        temp.preOrder(temp.right);
+        System.out.println();
+        BSTree d = new BSTree(5, 0, 5);
+        temp.Delete(d);
+        temp.preOrder(temp.right);
     }
 }
