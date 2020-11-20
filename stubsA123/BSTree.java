@@ -68,17 +68,6 @@ public class BSTree extends Tree {
         cur = cur.right;
         if (cur == null)
             return null;
-        if (exact) {
-            while (cur != null) {
-                if (key > cur.key)
-                    cur = cur.right;
-                else if (key < cur.key)
-                    cur = cur.left;
-                else
-                    return cur;
-            }
-            return null;
-        }
         BSTree ans = null;
         while (cur != null) {
             if (cur.key == key) {
@@ -90,9 +79,11 @@ public class BSTree extends Tree {
             } else
                 cur = cur.right;
         }
-        if (ans != null)
-            return ans;
-        return null;
+        if (ans == null)
+            return null;
+        if (exact)
+            return ans.key == key ? ans : null;
+        return ans;
     }
 
     public BSTree getFirst() {
