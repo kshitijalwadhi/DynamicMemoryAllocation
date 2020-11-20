@@ -1,6 +1,9 @@
 // Class: Implementation of BST in A2
 // Implement the following functions according to the specifications provided in Tree.java
 
+import java.util.Queue;
+import java.util.LinkedList;
+
 public class BSTree extends Tree {
 
     private BSTree left, right; // Children.
@@ -59,36 +62,10 @@ public class BSTree extends Tree {
         return temp;
     }
 
-    private BSTree deleteHelper(BSTree node, Dictionary e) {
-        if (node == null)
-            return null;
-        if (e.key < node.key) {
-            BSTree leftChild = deleteHelper(node.left, e);
-            node.left = leftChild;
-            leftChild.parent = node;
-        } else if (e.key > node.key) {
-            BSTree rightChild = deleteHelper(node.right, e);
-            node.right = rightChild;
-            rightChild.parent = node;
-        } else {
-            if (e.size == node.size && e.address == node.address) {
-                if (node.left == null)
-                    return node.right;
-                else if (node.right == null)
-                    return node.left;
-
-                BSTree succ = node.getNext();
-                node.address = succ.address;
-                node.key = succ.key;
-                node.size = succ.size;
-
-                BSTree newRightChild = deleteHelper(node.right, succ);
-                node.right = newRightChild;
-                newRightChild.parent = node;
-            } else
-                return null;
-        }
-        return node;
+    private boolean match(BSTree node, Dictionary e) {
+        if (node.key == e.key && node.address == e.address && node.size == e.size)
+            return true;
+        return false;
     }
 
     public boolean Delete(Dictionary e) {
@@ -96,11 +73,59 @@ public class BSTree extends Tree {
         cur = cur.right;
         if (cur == null)
             return false;
-        if (cur.Find(e.key, true) != null) {
-            deleteHelper(cur, e);
-            return true;
+        BSTree prev = cur.parent;
+        while (cur != null && !match(cur, e)) {
+            prev = cur;
+            if (cur.key > e.key)
+                cur = cur.left;
+            else
+                cur = cur.right;
         }
-        return false;
+        if (cur == null)
+            return false;
+
+        if (cur.left == null && cur.right == null) {
+            if (prev.left == cur)
+                prev.left = null;
+            else
+                prev.right = null;
+        } else if (cur.right == null) {
+            if (prev.right == cur) {
+                prev.right = cur.left;
+                cur.left.parent = prev;
+            } else {
+                prev.left = cur.left;
+                cur.left.parent = prev;
+            }
+        } else if (cur.left == null) {
+            if (prev.right == cur) {
+                prev.right = cur.right;
+                cur.right.parent = prev;
+            } else {
+                prev.left = cur.right;
+                cur.right.parent = prev;
+            }
+        } else {
+            prev = null;
+            BSTree cur2 = cur.right;
+            while (cur2.left != null) {
+                prev = cur2;
+                cur2 = cur2.left;
+            }
+            cur.key = cur2.key;
+            cur.address = cur2.address;
+            cur.size = cur2.size;
+            if (prev != null) {
+                prev.left = cur2.right;
+                if (cur2.right != null)
+                    cur2.right.parent = prev;
+            } else {
+                cur.right = cur2.right;
+                if (cur2.right != null)
+                    cur2.right.parent = cur;
+            }
+        }
+        return true;
     }
 
     public BSTree Find(int key, boolean exact) {
@@ -167,24 +192,38 @@ public class BSTree extends Tree {
             return;
         inOrder(node.left);
         System.out.print(node.key + " ");
-
         inOrder(node.right);
+    }
+
+    public void printLevelOrder() {
+        Queue<BSTree> queue = new LinkedList<BSTree>();
+        queue.add(this);
+        while (!queue.isEmpty()) {
+            BSTree tempNode = queue.poll();
+            System.out.print(tempNode.key + " ");
+            if (tempNode.left != null) {
+                queue.add(tempNode.left);
+            }
+            if (tempNode.right != null) {
+                queue.add(tempNode.right);
+            }
+        }
     }
 
     public static void main(String[] args) {
         BSTree temp = new BSTree();
         temp.Insert(5, 0, 5);
         temp.Insert(3, 0, 3);
-        temp.Insert(6, 0, 6);
+        temp.Insert(7, 0, 7);
         temp.Insert(2, 0, 2);
         temp.Insert(4, 0, 4);
         temp.Insert(1, 0, 1);
-        temp.Insert(7, 0, 7);
+        temp.Insert(6, 0, 6);
         temp.Insert(8, 0, 8);
-        temp.inOrder(temp.right);
-        System.out.println();
-        BSTree d = new BSTree(1, 0, 1);
+        BSTree d = new BSTree(3, 0, 3);
         temp.Delete(d);
         temp.inOrder(temp.right);
+        System.out.println();
+        temp.right.printLevelOrder();
     }
 }
