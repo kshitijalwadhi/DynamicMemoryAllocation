@@ -64,6 +64,34 @@ public class BSTree extends Tree {
     }
 
     public BSTree Find(int key, boolean exact) {
+        BSTree cur = getSentinel(this);
+        cur = cur.right;
+        if (cur == null)
+            return null;
+        if (exact) {
+            while (cur != null) {
+                if (key > cur.key)
+                    cur = cur.right;
+                else if (key < cur.key)
+                    cur = cur.left;
+                else
+                    return cur;
+            }
+            return null;
+        }
+        BSTree ans = null;
+        while (cur != null) {
+            if (cur.key == key) {
+                ans = cur;
+                break;
+            } else if (cur.key > key) {
+                ans = cur;
+                cur = cur.left;
+            } else
+                cur = cur.right;
+        }
+        if (ans != null)
+            return ans;
         return null;
     }
 
@@ -105,15 +133,20 @@ public class BSTree extends Tree {
 
     public static void main(String[] args) {
         BSTree temp = new BSTree();
-        temp.Insert(5, 0, 0);
-        temp.Insert(3, 0, 0);
-        temp.Insert(6, 0, 0);
-        temp.Insert(2, 0, 0);
-        temp.Insert(4, 0, 0);
-        temp.Insert(1, 0, 0);
-        temp.Insert(7, 0, 0);
-        temp.Insert(8, 0, 0);
+        temp.Insert(5, 0, 5);
+        temp.Insert(3, 0, 3);
+        temp.Insert(6, 0, 6);
+        temp.Insert(2, 0, 2);
+        temp.Insert(4, 0, 4);
+        temp.Insert(1, 0, 1);
+        temp.Insert(8, 0, 8);
+        temp.Insert(9, 0, 9);
         int test = temp.getFirst().getNext().address;
         System.out.println(test);
+        BSTree store = temp.Find(7, false);
+        if (store == null)
+            System.out.println("Not found");
+        else
+            System.out.println(store.key);
     }
 }
