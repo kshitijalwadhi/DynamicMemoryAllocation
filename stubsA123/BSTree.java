@@ -71,7 +71,7 @@ public class BSTree extends Tree {
             node.right = rightChild;
             rightChild.parent = node;
         } else {
-            if (e.size == node.size && e.address == e.address) {
+            if (e.size == node.size && e.address == node.address) {
                 if (node.left == null)
                     return node.right;
                 else if (node.right == null)
@@ -85,7 +85,8 @@ public class BSTree extends Tree {
                 BSTree newRightChild = deleteHelper(node.right, succ);
                 node.right = newRightChild;
                 newRightChild.parent = node;
-            }
+            } else
+                return null;
         }
         return node;
     }
@@ -95,7 +96,11 @@ public class BSTree extends Tree {
         cur = cur.right;
         if (cur == null)
             return false;
-        return deleteHelper(cur, e) == null ? false : true;
+        if (cur.Find(e.key, true) != null) {
+            deleteHelper(cur, e);
+            return true;
+        }
+        return false;
     }
 
     public BSTree Find(int key, boolean exact) {
@@ -157,12 +162,13 @@ public class BSTree extends Tree {
         return false;
     }
 
-    private void preOrder(BSTree node) {
+    private void inOrder(BSTree node) {
         if (node == null)
             return;
+        inOrder(node.left);
         System.out.print(node.key + " ");
-        preOrder(node.left);
-        preOrder(node.right);
+
+        inOrder(node.right);
     }
 
     public static void main(String[] args) {
@@ -175,10 +181,10 @@ public class BSTree extends Tree {
         temp.Insert(1, 0, 1);
         temp.Insert(7, 0, 7);
         temp.Insert(8, 0, 8);
-        temp.preOrder(temp.right);
+        temp.inOrder(temp.right);
         System.out.println();
-        BSTree d = new BSTree(5, 0, 5);
+        BSTree d = new BSTree(1, 0, 1);
         temp.Delete(d);
-        temp.preOrder(temp.right);
+        temp.inOrder(temp.right);
     }
 }
