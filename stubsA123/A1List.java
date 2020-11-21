@@ -44,6 +44,8 @@ public class A1List extends List {
 
     // checked
     public boolean Delete(Dictionary d) {
+        if (d == null)
+            return false;
 
         boolean flag = false;
 

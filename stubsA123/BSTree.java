@@ -195,7 +195,7 @@ public class BSTree extends Tree {
         inOrder(node.right);
     }
 
-    public void printLevelOrder() {
+    private void printLevelOrder() {
         Queue<BSTree> queue = new LinkedList<BSTree>();
         queue.add(this);
         while (!queue.isEmpty()) {
@@ -220,10 +220,14 @@ public class BSTree extends Tree {
         temp.Insert(1, 0, 1);
         temp.Insert(6, 0, 6);
         temp.Insert(8, 0, 8);
-        BSTree d = new BSTree(3, 0, 3);
-        temp.Delete(d);
-        temp.inOrder(temp.right);
-        System.out.println();
-        temp.right.printLevelOrder();
+        // BSTree d = new BSTree(3, 0, 3);
+        // temp.Delete(d);
+        // temp.inOrder(temp.right);
+        // System.out.println();
+        // temp.right.printLevelOrder();
+        int count = 0;
+        for (BSTree d = temp.getFirst(); d != null; d = d.getNext())
+            count++;
+        System.out.println(count);
     }
 }

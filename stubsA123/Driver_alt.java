@@ -5,7 +5,7 @@ import java.io.FileWriter;
 
 public class Driver_alt {
     public static void main(String args[]) throws IOException {
-        File myObj = new File("./testcases.txt");
+        File myObj = new File("./testcases_final.txt");
         FileWriter fw = new FileWriter("./newoutput1.txt");
         Scanner sc = new Scanner(myObj);
         int numTestCases;

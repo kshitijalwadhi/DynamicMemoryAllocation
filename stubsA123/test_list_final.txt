@@ -1,0 +1,106 @@
+5 
+20 
+Find -3 0
+Insert 48 66 -3
+Delete 3
+Delete -3
+Delete 4
+Delete -2
+Insert_Move 2 2 -1
+Insert 91 25 6
+Insert 73 12 -2
+Find 2 0
+Find 5 0
+Delete 7
+Insert_Move 48 -5 3
+Insert 3 74 7
+Delete 2
+Delete 10
+Delete 10
+Delete 8
+Insert_Move 50 72 9
+Insert_Move 9 33 5
+20 
+Find 4 0
+Insert_Move 82 82 6
+Delete 7
+Find -1 0
+Find 0 0
+Insert 28 83 6
+Insert_Move 84 10 -1
+Insert 24 67 -2
+Find 1 0
+Insert 84 76 -3
+Find 1 0
+Find 7 0
+Insert 89 36 -3
+Delete 3
+Insert 21 68 0
+Insert 78 69 7
+Find 10 1
+Insert -9 89 0
+Find 7 0
+Insert -9 3 8
+20 
+Insert 22 74 4
+Delete 3
+Insert 6 70 8
+Insert 73 64 1
+Insert_Move 1 21 10
+Delete 1
+Insert 91 58 -2
+Delete 4
+Find -3 0
+Insert_Move 93 49 -2
+Find -3 0
+Find -1 0
+Find 2 1
+Find 9 0
+Find -2 0
+Find 6 0
+Delete 0
+Find 3 1
+Delete -2
+Insert_Move -8 -10 6
+20 
+Delete -4
+Delete 5
+Insert 7 57 0
+Find 2 0
+Insert_Move 65 43 10
+Insert_Move 89 99 7
+Insert_Move 91 78 2
+Find 8 0
+Insert_Move 24 41 0
+Find 1 0
+Find 10 0
+Delete 4
+Insert 14 35 4
+Insert 49 -1 4
+Find 0 0
+Insert_Move 58 40 1
+Find 10 0
+Insert 82 17 5
+Insert 85 19 10
+Insert_Move 31 18 0
+20 
+Insert_Move 22 100 -2
+Insert 68 -9 1
+Insert_Move 15 39 4
+Delete 3
+Find -3 1
+Find -4 0
+Insert 33 61 -3
+Insert 69 57 -2
+Insert_Move 7 81 3
+Delete 3
+Insert_Move 18 85 9
+Find 7 0
+Delete -3
+Delete 8
+Insert 49 -4 -1
+Delete 8
+Find 0 0
+Delete 6
+Delete 9
+Delete 9
