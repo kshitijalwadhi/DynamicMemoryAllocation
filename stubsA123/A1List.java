@@ -186,11 +186,26 @@ public class A1List extends List {
 
         cur = cur.getFirst();
 
+        // check if head is (-1,-1,-1)
+        if (!checkSentinel(cur.prev))
+            return false;
+
         // check if cur.next.prev == cur
         while (cur.next != null) {
             if (cur.next.prev != cur)
                 return false;
             cur = cur.next;
+        }
+
+        // check if trailer is (-1,-1,-1)
+        if (!checkSentinel(cur))
+            return false;
+
+        // check if cur.prev.next == cur
+        while (cur.prev != null) {
+            if (cur.prev.next != cur)
+                return false;
+            cur = cur.prev;
         }
 
         return true;
