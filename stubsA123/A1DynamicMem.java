@@ -55,4 +55,26 @@ public class A1DynamicMem extends DynamicMem {
         return 0;
     }
 
+    private void status() {
+        System.out.println("Free Block:");
+        for (Dictionary d = freeBlk.getFirst(); d != null; d = d.getNext()) {
+            System.out.println("Address: " + d.address + ", Size: " + d.size);
+        }
+        System.out.println("Allocated Block:");
+        for (Dictionary d = allocBlk.getFirst(); d != null; d = d.getNext()) {
+            System.out.println("Address: " + d.address + ", Size: " + d.size);
+        }
+    }
+
+    public static void main(String[] args) {
+        A1DynamicMem mem = new A1DynamicMem(100, 1);
+        mem.Allocate(30);
+        mem.status();
+        mem.Allocate(30);
+        mem.status();
+        mem.Free(30);
+        mem.status();
+        mem.Allocate(30);
+        mem.status();
+    }
 }
