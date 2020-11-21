@@ -25,7 +25,9 @@ public class A1List extends List {
     // pending doubt of corner case
     public A1List Insert(int address, int size, int key) {
 
-        // do we need to handle that case when current node is the tail node?
+        // current node is tail.
+        if (this.next == null)
+            return null;
 
         A1List temp = new A1List(address, size, key);
         temp.next = this.next;
@@ -157,6 +159,8 @@ public class A1List extends List {
                 else
                     return false;
             }
+            if (fast == null)
+                return true;
 
             if (checkSentinel(slow) || checkSentinel(fast))
                 return false;
@@ -175,31 +179,15 @@ public class A1List extends List {
         if (checkCycle(cur, 1) || checkCycle(cur, 0))
             return false;
 
-        // check if any node other than sentinel has null pointer in prev or next
-
         // empty list case
         if ((cur.next == null && cur.prev.prev == null) || (cur.prev == null && cur.next.next == null)) {
+            return true;
         }
-        // cur on header
-        else if (cur.prev == null) {
-            if (checkSentinel(cur))
-                cur = cur.next;
-            else
-                return false;
-        }
-        // cur on trailer or in between
-        else {
-            while (cur.prev.prev != null) {
-                cur = cur.prev;
-            }
-            cur = cur.prev;
-        }
-        if (!checkSentinel(cur))
-            return false;
 
-        // check if node.next.prev == node for all nodes
+        cur = cur.getFirst();
 
-        while (!checkSentinel(cur)) {
+        // check if cur.next.prev == cur
+        while (cur.next != null) {
             if (cur.next.prev != cur)
                 return false;
             cur = cur.next;
