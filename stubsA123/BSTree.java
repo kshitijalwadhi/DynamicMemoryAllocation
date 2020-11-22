@@ -31,16 +31,10 @@ public class BSTree extends Tree {
             BSTree leftChild = insertHelper(node.left, address, size, key);
             node.left = leftChild;
             leftChild.parent = node;
-        } else if (key > node.key) {
+        } else if (key != node.key ? key > node.key : address > node.address) {
             BSTree rightChild = insertHelper(node.right, address, size, key);
             node.right = rightChild;
             rightChild.parent = node;
-        } else if (key == node.key && address > node.address) {
-            BSTree leftChild = insertHelper(node.left, node.address, node.size, key);
-            node.size = size;
-            node.address = address;
-            node.right = leftChild;
-            leftChild.parent = node;
         }
         return node;
     }
