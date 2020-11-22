@@ -190,6 +190,10 @@ public class BSTree extends Tree {
     }
 
     public boolean sanity() {
+
+        // traverse towards root. Check if cycle via parent pointer
+        // check if sentinel holds.
+        // perform dfs to check if node.left.parent == node || node.right.parent == node
         return false;
     }
 
