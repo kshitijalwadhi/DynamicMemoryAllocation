@@ -137,6 +137,10 @@ public class BSTree extends Tree {
         while (cur != null) {
             if (cur.key == key) {
                 ans = cur;
+                while (cur.left != null && cur.left.key == key) {
+                    ans = cur.left;
+                    cur = cur.left;
+                }
                 break;
             } else if (cur.key > key) {
                 ans = cur;
