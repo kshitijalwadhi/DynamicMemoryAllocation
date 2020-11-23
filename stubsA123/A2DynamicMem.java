@@ -56,6 +56,8 @@ public class A2DynamicMem extends A1DynamicMem {
             temp.Insert(d.address, d.size, d.address);
         }
         Dictionary cur = temp.getFirst();
+        if (cur == null)
+            return;
         while (cur.getNext() != null) {
             if ((cur.address + cur.size) == cur.getNext().address) {
                 Dictionary dict1, dict2;
@@ -68,10 +70,11 @@ public class A2DynamicMem extends A1DynamicMem {
                 }
                 freeBlk.Delete(dict1);
                 freeBlk.Delete(dict2);
+                Dictionary tempDict = cur.getNext();
                 temp.Delete(cur);
-                temp.Delete(cur.getNext());
-                freeBlk.Insert(cur.address, cur.size + cur.getNext().size, cur.size + cur.getNext().size);
-                cur = temp.Insert(cur.address, cur.size + cur.getNext().size, cur.address);
+                temp.Delete(tempDict);
+                freeBlk.Insert(cur.address, cur.size + tempDict.size, cur.size + tempDict.size);
+                cur = temp.Insert(cur.address, cur.size + tempDict.size, cur.address);
             } else {
                 cur = cur.getNext();
             }

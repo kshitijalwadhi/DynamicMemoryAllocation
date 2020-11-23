@@ -22,6 +22,7 @@ public class BSTree extends Tree {
         super(address, size, key);
     }
 
+    // checked
     private BSTree insertHelper(BSTree node, int address, int size, int key) {
         if (node == null) {
             node = new BSTree(address, size, key);
@@ -39,6 +40,7 @@ public class BSTree extends Tree {
         return node;
     }
 
+    // checked
     private BSTree getSentinel(BSTree node) {
         // trivial
         if (node == null)
@@ -49,6 +51,7 @@ public class BSTree extends Tree {
         return node;
     }
 
+    // checked
     public BSTree Insert(int address, int size, int key) {
         BSTree sentinel = getSentinel(this);
         if (sentinel.right == null) {
@@ -62,6 +65,7 @@ public class BSTree extends Tree {
         return temp;
     }
 
+    // checked
     private boolean match(BSTree node, Dictionary e) {
         if (node.key == e.key && node.address == e.address && node.size == e.size)
             return true;
@@ -128,9 +132,11 @@ public class BSTree extends Tree {
         return true;
     }
 
+    // checked
     public BSTree Find(int key, boolean exact) {
         BSTree cur = getSentinel(this);
         cur = cur.right;
+        // only sentinel
         if (cur == null)
             return null;
         BSTree ans = null;
@@ -155,7 +161,7 @@ public class BSTree extends Tree {
         return ans;
     }
 
-    // check if need smallest of full tree or of subtree
+    // checked
     public BSTree getFirst() {
         // gets root
         BSTree cur = getSentinel(this);
@@ -169,15 +175,21 @@ public class BSTree extends Tree {
         return cur;
     }
 
+    // checked
     public BSTree getNext() {
 
         BSTree cur = this;
+        // if sentinel
+        if (cur.parent == null)
+            return null;
+        // if right subtree present. go right then keep going left
         if (cur.right != null) {
             cur = cur.right;
             while (cur.left != null)
                 cur = cur.left;
             return cur;
         }
+        // if no right subtree.
         BSTree p_node = cur.parent;
         while (p_node != null && cur == p_node.right) {
             cur = p_node;

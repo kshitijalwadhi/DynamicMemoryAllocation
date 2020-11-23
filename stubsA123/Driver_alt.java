@@ -5,7 +5,7 @@ import java.io.FileWriter;
 
 public class Driver_alt {
     public static void main(String args[]) throws IOException {
-        File myObj = new File("./testcases_20.txt");
+        File myObj = new File("./new_test.txt");
         FileWriter fw = new FileWriter("./newoutput1.txt");
         Scanner sc = new Scanner(myObj);
         int numTestCases;
@@ -19,21 +19,33 @@ public class Driver_alt {
                 String command;
                 command = sc.next();
                 int argument;
-                argument = sc.nextInt();
                 int result = -5;
                 switch (command) {
                     case "Allocate":
+                        argument = sc.nextInt();
                         result = obj.Allocate(argument);
                         break;
                     case "Free":
+                        argument = sc.nextInt();
                         result = obj.Free(argument);
+                        break;
+                    case "Defragment":
+                        obj.Defragment();
+                        result = -10;
                         break;
                     default:
                         break;
                 }
                 String str = String.valueOf(result);
-                fw.write(str);
-                fw.write("\n");
+                if (result != -10) {
+                    // System.out.println(str);
+                    fw.write(str);
+                    fw.write("\n");
+                } else {
+                    // System.out.println("Defragmented");
+                    fw.write("Defragmented");
+                    fw.write("\n");
+                }
             }
 
         }
