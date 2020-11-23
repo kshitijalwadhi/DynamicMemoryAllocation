@@ -155,6 +155,7 @@ public class BSTree extends Tree {
         return ans;
     }
 
+    // check if need smallest of full tree or of subtree
     public BSTree getFirst() {
         // gets root
         BSTree cur = getSentinel(this);

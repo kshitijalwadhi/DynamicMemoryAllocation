@@ -13,7 +13,7 @@ public class Driver_alt {
         while (numTestCases-- > 0) {
             int size;
             size = sc.nextInt();
-            A1DynamicMem obj = new A1DynamicMem(size);
+            A1DynamicMem obj = new A1DynamicMem(size, 2);
             int numCommands = sc.nextInt();
             while (numCommands-- > 0) {
                 String command;
