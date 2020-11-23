@@ -71,9 +71,10 @@ public class A2DynamicMem extends A1DynamicMem {
                 temp.Delete(cur);
                 temp.Delete(cur.getNext());
                 freeBlk.Insert(cur.address, cur.size + cur.getNext().size, cur.size + cur.getNext().size);
-                temp.Insert(cur.address, cur.size + cur.getNext().size, cur.address);
+                cur = temp.Insert(cur.address, cur.size + cur.getNext().size, cur.address);
+            } else {
+                cur = cur.getNext();
             }
-            cur = cur.getNext();
         }
         temp = null;
         return;
