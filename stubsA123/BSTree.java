@@ -41,17 +41,6 @@ public class BSTree extends Tree {
     }
 
     // checked
-    private BSTree getSentinel(BSTree node) {
-        // trivial
-        if (node == null)
-            return null;
-        // for all other. (takes to sentinel)
-        while (node.parent != null)
-            node = node.parent;
-        return node;
-    }
-
-    // checked
     public BSTree Insert(int address, int size, int key) {
         BSTree sentinel = getSentinel(this);
         if (sentinel.right == null) {
@@ -66,28 +55,34 @@ public class BSTree extends Tree {
     }
 
     // checked
-    private boolean match(BSTree node, Dictionary e) {
-        if (node.key == e.key && node.address == e.address && node.size == e.size)
-            return true;
-        return false;
+    private BSTree getSentinel(BSTree node) {
+        // trivial
+        if (node == null)
+            return null;
+        // for all other. (takes to sentinel)
+        while (node.parent != null)
+            node = node.parent;
+        return node;
     }
 
+    // checked
     public boolean Delete(Dictionary e) {
         BSTree cur = getSentinel(this);
         cur = cur.right;
         if (cur == null)
             return false;
         BSTree prev = cur.parent;
-        while (cur != null && !match(cur, e)) {
-            prev = cur;
-            if (cur.key > e.key)
-                cur = cur.left;
-            else
+        while (cur != null) {
+            if (e.key == cur.key && e.address == cur.address)
+                break;
+            if ((cur.key < e.key) || ((cur.key == e.key) && cur.address < e.address))
                 cur = cur.right;
+            else
+                cur = cur.left;
         }
         if (cur == null)
             return false;
-
+        prev = cur.parent;
         if (cur.left == null && cur.right == null) {
             if (prev.left == cur)
                 prev.left = null;
@@ -143,10 +138,8 @@ public class BSTree extends Tree {
         while (cur != null) {
             if (cur.key == key) {
                 ans = cur;
-                while (cur.left != null && cur.left.key == key) {
-                    ans = cur.left;
-                    cur = cur.left;
-                }
+                while (ans != null && ans.getPrev() != null && ans.getPrev().key == key)
+                    ans = ans.getPrev();
                 break;
             } else if (cur.key > key) {
                 ans = cur;
@@ -192,6 +185,28 @@ public class BSTree extends Tree {
         // if no right subtree.
         BSTree p_node = cur.parent;
         while (p_node != null && cur == p_node.right) {
+            cur = p_node;
+            p_node = p_node.parent;
+        }
+        if (p_node == null)
+            return p_node;
+        return p_node;
+    }
+
+    private BSTree getPrev() {
+
+        BSTree cur = this;
+        // if sentinel
+        if (cur.parent == null)
+            return null;
+        if (cur.left != null) {
+            cur = cur.left;
+            while (cur.right != null)
+                cur = cur.right;
+            return cur;
+        }
+        BSTree p_node = cur.parent;
+        while (p_node != null && cur == p_node.left) {
             cur = p_node;
             p_node = p_node.parent;
         }
