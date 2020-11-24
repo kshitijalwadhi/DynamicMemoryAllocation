@@ -222,48 +222,4 @@ public class BSTree extends Tree {
         // perform dfs to check if node.left.parent == node || node.right.parent == node
         return false;
     }
-
-    private void inOrder(BSTree node) {
-        if (node == null)
-            return;
-        inOrder(node.left);
-        System.out.print(node.key + " ");
-        inOrder(node.right);
-    }
-
-    private void printLevelOrder() {
-        Queue<BSTree> queue = new LinkedList<BSTree>();
-        queue.add(this);
-        while (!queue.isEmpty()) {
-            BSTree tempNode = queue.poll();
-            System.out.print(tempNode.key + " ");
-            if (tempNode.left != null) {
-                queue.add(tempNode.left);
-            }
-            if (tempNode.right != null) {
-                queue.add(tempNode.right);
-            }
-        }
-    }
-
-    public static void main(String[] args) {
-        BSTree temp = new BSTree();
-        temp.Insert(5, 0, 5);
-        temp.Insert(3, 0, 3);
-        temp.Insert(7, 0, 7);
-        temp.Insert(2, 0, 2);
-        temp.Insert(4, 0, 4);
-        temp.Insert(1, 0, 1);
-        temp.Insert(6, 0, 6);
-        temp.Insert(8, 0, 8);
-        // BSTree d = new BSTree(3, 0, 3);
-        // temp.Delete(d);
-        // temp.inOrder(temp.right);
-        // System.out.println();
-        // temp.right.printLevelOrder();
-        int count = 0;
-        for (BSTree d = temp.getFirst(); d != null; d = d.getNext())
-            count++;
-        System.out.println(count);
-    }
 }
