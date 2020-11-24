@@ -45,6 +45,40 @@ public class A2DynamicMem extends A1DynamicMem {
     // 5. Continue traversing the new dictionary
     // 6. Once the traversal is complete, delete the new dictionary
 
+    public int Allocate(int blockSize) {
+        if (blockSize <= 0)
+            return -1;
+
+        Dictionary temp = freeBlk.Find(blockSize, false);
+        if (temp == null)
+            return -1;
+        int addr = temp.address;
+        int sz = temp.size;
+        if (temp.size == blockSize) {
+            freeBlk.Delete(temp);
+            allocBlk.Insert(addr, sz, addr);
+            return addr;
+        } else {
+            freeBlk.Delete(temp);
+            allocBlk.Insert(addr, blockSize, addr);
+            freeBlk.Insert(addr + blockSize, sz - blockSize, sz - blockSize);
+            return addr;
+        }
+    }
+
+    public int Free(int startAddr) {
+        if (startAddr < 0)
+            return -1;
+        Dictionary temp = allocBlk.Find(startAddr, true);
+        if (temp == null)
+            return -1;
+        int addr = temp.address;
+        int sz = temp.size;
+        allocBlk.Delete(temp);
+        freeBlk.Insert(addr, sz, sz);
+        return 0;
+    }
+
     public void Defragment() {
         Dictionary temp;
         if (allocBlk.getClass().getName() == "BSTree") {
