@@ -82,45 +82,4 @@ public class A2DynamicMem extends A1DynamicMem {
         temp = null;
         return;
     }
-
-    private void status() {
-        System.out.println("Free Block:");
-        for (Dictionary d = freeBlk.getFirst(); d != null; d = d.getNext()) {
-            System.out.println("Address: " + d.address + ", Size: " + d.size);
-        }
-        System.out.println("Allocated Block:");
-        for (Dictionary d = allocBlk.getFirst(); d != null; d = d.getNext()) {
-            System.out.println("Address: " + d.address + ", Size: " + d.size);
-        }
-        System.out.println("====================================");
-    }
-
-    public static void main(String[] args) {
-        A2DynamicMem mem = new A2DynamicMem(100, 2);
-        // mem.Allocate(30);
-        // mem.status();
-        // mem.Allocate(30);
-        // mem.status();
-        // mem.Free(30);
-        // mem.status();
-        // // mem.Allocate(30);
-        // // mem.status();
-        // mem.Defragment();
-        // mem.status();
-        mem.status();
-        mem.Allocate(5);
-        mem.status();
-        mem.Allocate(10);
-        mem.status();
-        mem.Allocate(15);
-        mem.status();
-        mem.Free(5);
-        mem.status();
-        mem.Free(0);
-        mem.status();
-        mem.Defragment();
-        mem.status();
-        mem.Allocate(12);
-        mem.status();
-    }
 }
