@@ -70,11 +70,9 @@ public class A2DynamicMem extends A1DynamicMem {
                 }
                 freeBlk.Delete(dict1);
                 freeBlk.Delete(dict2);
-                Dictionary tempDict = cur.getNext();
-                temp.Delete(cur);
-                temp.Delete(tempDict);
-                freeBlk.Insert(cur.address, cur.size + tempDict.size, cur.size + tempDict.size);
-                cur = temp.Insert(cur.address, cur.size + tempDict.size, cur.address);
+                freeBlk.Insert(cur.address, cur.size + cur.getNext().size, cur.size + cur.getNext().size);
+                cur.size = cur.size + cur.getNext().size;
+                temp.Delete(cur.getNext());
             } else {
                 cur = cur.getNext();
             }
