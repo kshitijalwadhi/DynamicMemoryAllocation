@@ -1,9 +1,6 @@
 // Class: Implementation of BST in A2
 // Implement the following functions according to the specifications provided in Tree.java
 
-import java.util.Queue;
-import java.util.LinkedList;
-
 public class BSTree extends Tree {
 
     private BSTree left, right; // Children.
