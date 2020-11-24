@@ -7,7 +7,7 @@ public class A2Driver {
     public static void main(String args[]) throws IOException {
         int numTestCases;
         File myObj = new File("./new_test.txt");
-        FileWriter fw = new FileWriter("./newoutput1.txt");
+        FileWriter fw = new FileWriter("./newoutput2.txt");
         Scanner sc = new Scanner(myObj);
         numTestCases = sc.nextInt();
         while (numTestCases-- > 0) {
