@@ -212,11 +212,95 @@ public class BSTree extends Tree {
         return p_node;
     }
 
+    private boolean checkSentinel(BSTree node) {
+        if (node.parent == null && (node.key == -1 && node.address == -1 && node.size == -1))
+            return true;
+        return false;
+    }
+
+    // flag = 0 for key. 1 for address
+    private BSTree getMin(BSTree node) {
+        while (node.left != null)
+            node = node.left;
+        return node;
+    }
+
+    // flag = 0 for key, 1 for address
+    private BSTree getMax(BSTree node) {
+        while (node.right != null)
+            node = node.right;
+        return node;
+    }
+
+    // this should return true for sane tree
+    private boolean dfshelper(BSTree node) {
+
+        if (node == null)
+            return true;
+
+        if (node.left != null) {
+            if (node.left.parent != node)
+                return false;
+            BSTree max = getMax(node.left);
+            if (max.key > node.key || (max.key == node.key && max.address >= node.address))
+                return false;
+            return true;
+        }
+        if (node.right != null) {
+            if (node.right.parent != node)
+                return false;
+            BSTree min = getMin(node.right);
+            if (min.key < node.key || (min.key == node.key && min.address <= node.address))
+                return false;
+            return true;
+        }
+        return dfshelper(node.left) && dfshelper(node.right);
+    }
+
+    private boolean checkCycle(BSTree node) {
+        if (node == null)
+            return false;
+        BSTree slow = node;
+        BSTree fast = node;
+        while (true) {
+            slow = slow.parent;
+            if (slow == null)
+                break;
+            if (fast.parent.parent != null)
+                fast = fast.parent.parent;
+            else
+                break;
+            if (fast == null || slow == null)
+                break;
+            if (fast.parent == null || slow.parent == null)
+                break;
+            if (slow == fast)
+                return true;
+        }
+        return false;
+    }
+
     public boolean sanity() {
 
         // traverse towards root. Check if cycle via parent pointer
+        BSTree cur = this;
+        if (cur.parent == null && (cur.key != -1 || cur.address != -1 || cur.size != -1))
+            return false;
+        if (checkCycle(cur))
+            return false;
+        // go towards parent
+        while (cur.parent != null) {
+            cur = cur.parent;
+        }
         // check if sentinel holds.
+        if (!checkSentinel(cur))
+            return false;
+
         // perform dfs to check if node.left.parent == node || node.right.parent == node
-        return false;
+        // && BST property holds or not. (for both key and address)
+        cur = cur.right;
+        if (!dfshelper(cur))
+            return false;
+        return true;
     }
 }

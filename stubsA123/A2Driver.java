@@ -36,9 +36,15 @@ public class A2Driver {
                     default:
                         break;
                 }
-                String str = String.valueOf(result);
-                fw.write(str);
-                fw.write("\n");
+                if (obj.freeBlk.sanity() == false || obj.allocBlk.sanity() == false) {
+                    System.out.println("sanity broke");
+
+                }
+                if (result != -5) {
+                    String str = String.valueOf(result);
+                    fw.write(str);
+                    fw.write("\n");
+                }
             }
 
         }
