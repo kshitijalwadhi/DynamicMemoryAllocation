@@ -80,10 +80,10 @@ public class A2DynamicMem extends A1DynamicMem {
     }
 
     public void Defragment() {
-        Dictionary temp;
-        if (allocBlk.getClass().getName() == "BSTree") {
+        Dictionary temp = null;
+        if (this.type == 2) {
             temp = new BSTree();
-        } else {
+        } else if (this.type == 3) {
             temp = new AVLTree();
         }
         for (Dictionary d = freeBlk.getFirst(); d != null; d = d.getNext()) {
@@ -94,11 +94,11 @@ public class A2DynamicMem extends A1DynamicMem {
             return;
         while (cur.getNext() != null) {
             if ((cur.address + cur.size) == cur.getNext().address) {
-                Dictionary dict1, dict2;
-                if (allocBlk.getClass().getName() == "BSTree") {
+                Dictionary dict1 = null, dict2 = null;
+                if (this.type == 2) {
                     dict1 = new BSTree(cur.address, cur.size, cur.size);
                     dict2 = new BSTree(cur.getNext().address, cur.getNext().size, cur.getNext().size);
-                } else {
+                } else if (this.type == 3) {
                     dict1 = new AVLTree(cur.address, cur.size, cur.size);
                     dict2 = new AVLTree(cur.getNext().address, cur.getNext().size, cur.getNext().size);
                 }
