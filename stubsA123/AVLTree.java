@@ -1,3 +1,6 @@
+import java.util.LinkedList;
+import java.util.Queue;
+
 // Class: Height balanced AVL Tree
 // Binary Search Tree
 
@@ -39,8 +42,127 @@ public class AVLTree extends BSTree {
         return node;
     }
 
+    private int getHeight(AVLTree node) {
+        if (node == null)
+            return -1;
+        return node.height;
+    }
+
+    private int max(int a, int b) {
+        if (a >= b)
+            return a;
+        return b;
+    }
+
+    private void updateHeight(AVLTree node) {
+        int left_height = getHeight(node.left);
+        int right_height = getHeight(node.right);
+
+        node.height = 1 + max(left_height, right_height);
+    }
+
+    private int balanceFactor(AVLTree node) {
+        int left_height = getHeight(node.left);
+        int right_height = getHeight(node.right);
+
+        return right_height - left_height;
+    }
+
+    private AVLTree leftLeft(AVLTree node) {
+        return rightRotate(node);
+    }
+
+    private AVLTree leftRight(AVLTree node) {
+        node.left = leftRotate(node.left);
+        return leftLeft(node);
+    }
+
+    private AVLTree rightRight(AVLTree node) {
+        return leftRotate(node);
+    }
+
+    private AVLTree rightLeft(AVLTree node) {
+        node.right = rightRotate(node.right);
+        return rightRight(node);
+    }
+
+    private AVLTree rightRotate(AVLTree node) {
+        AVLTree leftChild = node.left;
+        leftChild.parent = node.parent;
+        leftChild.right.parent = node;
+        node.left = leftChild.right;
+        leftChild.right = node;
+        node.parent = leftChild;
+
+        updateHeight(node);
+        updateHeight(leftChild);
+        return leftChild;
+    }
+
+    private AVLTree leftRotate(AVLTree node) {
+        AVLTree rightChild = node.right;
+        rightChild.parent = node.parent;
+        rightChild.left.parent = node;
+        node.right = rightChild.left;
+        rightChild.left = node;
+        node.parent = rightChild;
+
+        updateHeight(node);
+        updateHeight(rightChild);
+        return rightChild;
+    }
+
+    private AVLTree balance(AVLTree node) {
+
+        if (balanceFactor(node) == -2) {
+            if (balanceFactor(node.left) <= 0)
+                return leftLeft(node);
+            else
+                return leftRight(node);
+        } else if (balanceFactor(node) == 2) {
+            if (balanceFactor(node.right) >= 0)
+                return rightRight(node);
+            else
+                return rightLeft(node);
+        }
+        return node;
+    }
+
+    private AVLTree insertHelper(AVLTree node, int address, int size, int key) {
+        if (node == null) {
+            node = new AVLTree(address, size, key);
+            return node;
+        }
+        if (key != node.key ? key < node.key : address < node.address) {
+            AVLTree leftChild = insertHelper(node.left, address, size, key);
+            node.left = leftChild;
+            leftChild.parent = node;
+        } else if (key != node.key ? key > node.key : address > node.address) {
+            AVLTree rightChild = insertHelper(node.right, address, size, key);
+            node.right = rightChild;
+            rightChild.parent = node;
+        }
+
+        updateHeight(node);
+
+        return balance(node);
+    }
+
     public AVLTree Insert(int address, int size, int key) {
-        return null;
+
+        AVLTree sentinel = getSentinel(this);
+        if (sentinel.right == null) {
+            AVLTree newNode = new AVLTree(address, size, key);
+            sentinel.right = newNode;
+            newNode.parent = sentinel;
+            return newNode;
+        }
+
+        AVLTree cur = sentinel.right;
+        AVLTree temp = insertHelper(cur, address, size, key);
+        sentinel.right = temp;
+
+        return temp;
     }
 
     public boolean Delete(Dictionary e) {
@@ -133,5 +255,38 @@ public class AVLTree extends BSTree {
 
     public boolean sanity() {
         return false;
+    }
+
+    private void printLevelOrder() {
+        Queue<AVLTree> queue = new LinkedList<AVLTree>();
+        queue.add(this);
+        while (!queue.isEmpty()) {
+            AVLTree tempNode = queue.poll();
+            System.out.print(tempNode.key + ":" + tempNode.height + " ");
+            if (tempNode.left != null) {
+                queue.add(tempNode.left);
+            }
+            if (tempNode.right != null) {
+                queue.add(tempNode.right);
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        AVLTree temp = new AVLTree();
+        temp.Insert(5, 0, 5);
+        temp.Insert(3, 0, 3);
+        temp.Insert(7, 0, 7);
+        temp.Insert(2, 0, 2);
+        temp.Insert(4, 0, 4);
+        temp.Insert(1, 0, 1);
+        temp.Insert(6, 0, 6);
+        temp.Insert(8, 0, 8);
+
+        temp.right.printLevelOrder();
+        // int count = 0;
+        // for (AVLTree d = temp.getFirst(); d != null; d = d.getNext())
+        // count++;
+        // System.out.println(count);
     }
 }
