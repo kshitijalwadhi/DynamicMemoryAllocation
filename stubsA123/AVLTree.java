@@ -166,7 +166,80 @@ public class AVLTree extends BSTree {
     }
 
     public boolean Delete(Dictionary e) {
-        return false;
+        AVLTree cur = getSentinel(this);
+        cur = cur.right;
+        if (cur == null)
+            return false;
+        AVLTree prev = cur.parent;
+        while (cur != null) {
+            if (e.key == cur.key && e.address == cur.address)
+                break;
+            if ((cur.key < e.key) || ((cur.key == e.key) && cur.address < e.address))
+                cur = cur.right;
+            else
+                cur = cur.left;
+        }
+        if (cur == null)
+            return false;
+        prev = cur.parent;
+        if (cur.left == null && cur.right == null) {
+            if (prev.left == cur)
+                prev.left = null;
+            else
+                prev.right = null;
+        } else if (cur.right == null) {
+            if (prev.right == cur) {
+                prev.right = cur.left;
+                cur.left.parent = prev;
+            } else {
+                prev.left = cur.left;
+                cur.left.parent = prev;
+            }
+        } else if (cur.left == null) {
+            if (prev.right == cur) {
+                prev.right = cur.right;
+                cur.right.parent = prev;
+            } else {
+                prev.left = cur.right;
+                cur.right.parent = prev;
+            }
+        } else {
+            prev = null;
+            AVLTree cur2 = cur.right;
+            while (cur2.left != null) {
+                prev = cur2;
+                cur2 = cur2.left;
+            }
+            cur.key = cur2.key;
+            cur.address = cur2.address;
+            cur.size = cur2.size;
+            if (prev != null) {
+                prev.left = cur2.right;
+                if (cur2.right != null)
+                    cur2.right.parent = prev;
+            } else {
+                cur.right = cur2.right;
+                if (cur2.right != null)
+                    cur2.right.parent = cur;
+            }
+        }
+        deleteHelper(prev);
+        return true;
+    }
+
+    private void deleteHelper(AVLTree node) {
+        AVLTree cur = node;
+        while (balanceFactor(cur) > -2 && balanceFactor(cur) < 2) {
+            updateHeight(cur);
+            cur = cur.parent;
+        }
+        if (cur.parent == null)
+            return;
+        if (cur.parent.left == cur) {
+            cur.parent.left = balance(cur);
+        } else {
+            cur.parent.right = balance(cur);
+        }
     }
 
     public AVLTree Find(int k, boolean exact) {
@@ -282,7 +355,8 @@ public class AVLTree extends BSTree {
         temp.Insert(1, 0, 1);
         temp.Insert(6, 0, 6);
         temp.Insert(8, 0, 8);
-
+        AVLTree d = new AVLTree(1, 0, 1);
+        temp.Delete(d);
         temp.right.printLevelOrder();
         // int count = 0;
         // for (AVLTree d = temp.getFirst(); d != null; d = d.getNext())
