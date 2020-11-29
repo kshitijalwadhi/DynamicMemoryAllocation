@@ -13,7 +13,7 @@ public class A2Driver {
         while (numTestCases-- > 0) {
             int size;
             size = sc.nextInt();
-            A2DynamicMem obj = new A2DynamicMem(size, 2);
+            A2DynamicMem obj = new A2DynamicMem(size, 3);
             int numCommands = sc.nextInt();
             while (numCommands-- > 0) {
                 String command;

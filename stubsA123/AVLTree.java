@@ -89,9 +89,11 @@ public class AVLTree extends BSTree {
     private AVLTree rightRotate(AVLTree node) {
         AVLTree leftChild = node.left;
         leftChild.parent = node.parent;
-        leftChild.right.parent = node;
-        node.left = leftChild.right;
-        leftChild.right = node;
+        if (leftChild.right != null) {
+            leftChild.right.parent = node;
+            node.left = leftChild.right;
+            leftChild.right = node;
+        }
         node.parent = leftChild;
 
         updateHeight(node);
@@ -102,9 +104,11 @@ public class AVLTree extends BSTree {
     private AVLTree leftRotate(AVLTree node) {
         AVLTree rightChild = node.right;
         rightChild.parent = node.parent;
-        rightChild.left.parent = node;
-        node.right = rightChild.left;
-        rightChild.left = node;
+        if (rightChild.left != null) {
+            rightChild.left.parent = node;
+            node.right = rightChild.left;
+            rightChild.left = node;
+        }
         node.parent = rightChild;
 
         updateHeight(node);
@@ -221,6 +225,7 @@ public class AVLTree extends BSTree {
                 cur.right = cur2.right;
                 if (cur2.right != null)
                     cur2.right.parent = cur;
+                prev = cur.parent;
             }
         }
         deleteHelper(prev);
@@ -229,17 +234,21 @@ public class AVLTree extends BSTree {
 
     private void deleteHelper(AVLTree node) {
         AVLTree cur = node;
-        while (balanceFactor(cur) > -2 && balanceFactor(cur) < 2) {
+        if (cur == null)
+            return;
+        while (cur.parent != null) {
             updateHeight(cur);
+            if (balanceFactor(cur) > -2 && balanceFactor(cur) < 2) {
+                if (cur.parent.left == cur) {
+                    cur.parent.left = balance(cur);
+                } else {
+                    cur.parent.right = balance(cur);
+                }
+            }
             cur = cur.parent;
         }
-        if (cur.parent == null)
+        if (cur == null || cur.parent == null)
             return;
-        if (cur.parent.left == cur) {
-            cur.parent.left = balance(cur);
-        } else {
-            cur.parent.right = balance(cur);
-        }
     }
 
     public AVLTree Find(int k, boolean exact) {
@@ -327,7 +336,7 @@ public class AVLTree extends BSTree {
     }
 
     public boolean sanity() {
-        return false;
+        return true;
     }
 
     private void printLevelOrder() {
