@@ -5,8 +5,9 @@ import java.io.FileWriter;
 
 public class A2Driver {
     public static void main(String args[]) throws IOException {
-        File myObj = new File("./test51.txt");
-        FileWriter fw = new FileWriter("./newoutput1.txt");
+        long startTime = System.nanoTime();
+        File myObj = new File("./test101.txt");
+        FileWriter fw = new FileWriter("./hugeoutavl.txt");
         Scanner sc = new Scanner(myObj);
         int numTestCases;
         numTestCases = sc.nextInt();
@@ -50,5 +51,7 @@ public class A2Driver {
         }
         fw.close();
         sc.close();
+        long stopTime = System.nanoTime();
+        System.out.println((stopTime - startTime) / 1000000000.0);
     }
 }

@@ -7,8 +7,8 @@ if(choose == 1):
     filename1 = input("input file: ")
     filename2 = input("Output file: ")
 else:
-    filename1 = "res_51.out"
-    filename2 = "newoutput1.txt"
+    filename1 = "hugeout.txt"
+    filename2 = "hugeoutavl.txt"
 
 file1 = open(filename1).readlines()
 
