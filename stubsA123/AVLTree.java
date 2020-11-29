@@ -120,12 +120,12 @@ public class AVLTree extends BSTree {
     private AVLTree balance(AVLTree node) {
 
         if (balanceFactor(node) == -2) {
-            if (balanceFactor(node.left) <= 0)
+            if (balanceFactor(node.left) < 0)
                 return leftLeft(node);
             else
                 return leftRight(node);
         } else if (balanceFactor(node) == 2) {
-            if (balanceFactor(node.right) >= 0)
+            if (balanceFactor(node.right) > 0)
                 return rightRight(node);
             else
                 return rightLeft(node);
@@ -226,11 +226,10 @@ public class AVLTree extends BSTree {
                 cur.right = cur2.right;
                 if (cur2.right != null)
                     cur2.right.parent = cur;
-                prev = cur.parent;
+                prev = cur;
             }
         }
-        deleteHelper(prev.left);
-        deleteHelper(prev.right);
+        deleteHelper(prev);
         return true;
     }
 

@@ -6,15 +6,15 @@ import java.io.FileWriter;
 public class A2Driver {
     public static void main(String args[]) throws IOException {
         long startTime = System.nanoTime();
-        File myObj = new File("./test51.txt");
-        FileWriter fw = new FileWriter("./newoutput1.txt");
+        File myObj = new File("./test101.txt");
+        FileWriter fw = new FileWriter("./hugeoutavl.txt");
         Scanner sc = new Scanner(myObj);
         int numTestCases;
         numTestCases = sc.nextInt();
         while (numTestCases-- > 0) {
             int size;
             size = sc.nextInt();
-            A2DynamicMem obj = new A2DynamicMem(size, 3);
+            A2DynamicMem obj = new A2DynamicMem(size, 2);
             int numCommands = sc.nextInt();
             while (numCommands-- > 0) {
                 String command;
@@ -37,21 +37,9 @@ public class A2Driver {
                     default:
                         break;
                 }
-                if (numTestCases == 98 && numCommands == 186) {
-                    System.out.println(command);
-                    System.out.println(argument);
-                }
-                if (obj.freeBlk.sanity() == false || obj.allocBlk.sanity() == false) {
-                    System.out.println("Numtestcase:" + numTestCases + "," + numCommands);
-                    // if (numTestCases == 92) {
-                    System.out.println(size);
-                    System.out.println(command);
-                    System.out.println(argument);
-                    break;
-                    // }
-                    // System.out.println("sanity broke");
-
-                }
+                // if (obj.freeBlk.sanity() == false || obj.allocBlk.sanity() == false) {
+                // System.out.println("sanity broke");
+                // }
                 if (result != -5) {
                     String str = String.valueOf(result);
                     fw.write(str);
