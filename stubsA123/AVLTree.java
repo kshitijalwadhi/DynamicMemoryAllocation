@@ -342,44 +342,4 @@ public class AVLTree extends BSTree {
     public boolean sanity() {
         return true;
     }
-
-    private void printLevelOrder() {
-        Queue<AVLTree> queue = new LinkedList<AVLTree>();
-        queue.add(this);
-        while (!queue.isEmpty()) {
-            AVLTree tempNode = queue.poll();
-            System.out.print(tempNode.key + ":" + tempNode.height + " ");
-            if (tempNode.left != null) {
-                queue.add(tempNode.left);
-            }
-            if (tempNode.right != null) {
-                queue.add(tempNode.right);
-            }
-        }
-    }
-
-    public static void main(String[] args) {
-        AVLTree temp = new AVLTree();
-        // temp.Insert(5, 0, 5);
-        // temp.Insert(3, 0, 3);
-        // temp.Insert(7, 0, 7);
-        // temp.Insert(2, 0, 2);
-        // temp.Insert(4, 0, 4);
-        // temp.Insert(1, 0, 1);
-        // temp.Insert(6, 0, 6);
-        // temp.Insert(8, 0, 8);
-        // AVLTree d = new AVLTree(1, 0, 1);
-        // temp.Delete(d);
-        temp.Insert(0, 10, 0);
-        temp.Insert(10, 10, 10);
-        temp.right.printLevelOrder();
-        System.out.println();
-        temp.Insert(20, 10, 20);
-
-        temp.right.printLevelOrder();
-        // int count = 0;
-        // for (AVLTree d = temp.getFirst(); d != null; d = d.getNext())
-        // count++;
-        // System.out.println(count);
-    }
 }
