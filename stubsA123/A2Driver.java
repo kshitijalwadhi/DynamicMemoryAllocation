@@ -6,8 +6,8 @@ import java.io.FileWriter;
 public class A2Driver {
     public static void main(String args[]) throws IOException {
         long startTime = System.nanoTime();
-        File myObj = new File("./test101.txt");
-        FileWriter fw = new FileWriter("./hugeoutavl.txt");
+        File myObj = new File("./test51.txt");
+        FileWriter fw = new FileWriter("./newoutput1.txt");
         Scanner sc = new Scanner(myObj);
         int numTestCases;
         numTestCases = sc.nextInt();
@@ -19,7 +19,7 @@ public class A2Driver {
             while (numCommands-- > 0) {
                 String command;
                 command = sc.next();
-                int argument;
+                int argument = -100;
                 int result = -5;
                 switch (command) {
                     case "Allocate":
@@ -37,8 +37,19 @@ public class A2Driver {
                     default:
                         break;
                 }
+                if (numTestCases == 98 && numCommands == 186) {
+                    System.out.println(command);
+                    System.out.println(argument);
+                }
                 if (obj.freeBlk.sanity() == false || obj.allocBlk.sanity() == false) {
-                    System.out.println("sanity broke");
+                    System.out.println("Numtestcase:" + numTestCases + "," + numCommands);
+                    // if (numTestCases == 92) {
+                    System.out.println(size);
+                    System.out.println(command);
+                    System.out.println(argument);
+                    break;
+                    // }
+                    // System.out.println("sanity broke");
 
                 }
                 if (result != -5) {
