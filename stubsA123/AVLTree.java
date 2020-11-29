@@ -92,8 +92,10 @@ public class AVLTree extends BSTree {
         if (leftChild.right != null) {
             leftChild.right.parent = node;
             node.left = leftChild.right;
-            leftChild.right = node;
+        } else {
+            node.left = null;
         }
+        leftChild.right = node;
         node.parent = leftChild;
 
         updateHeight(node);
@@ -107,8 +109,10 @@ public class AVLTree extends BSTree {
         if (rightChild.left != null) {
             rightChild.left.parent = node;
             node.right = rightChild.left;
-            rightChild.left = node;
+        } else {
+            node.right = null;
         }
+        rightChild.left = node;
         node.parent = rightChild;
 
         updateHeight(node);
@@ -259,12 +263,12 @@ public class AVLTree extends BSTree {
             return null;
         AVLTree ans = null;
         while (cur != null) {
-            if (cur.key == key) {
+            if (cur.key == k) {
                 ans = cur;
-                while (ans != null && ans.getPrev() != null && ans.getPrev().key == key)
+                while (ans != null && ans.getPrev() != null && ans.getPrev().key == k)
                     ans = ans.getPrev();
                 break;
-            } else if (cur.key > key) {
+            } else if (cur.key > k) {
                 ans = cur;
                 cur = cur.left;
             } else
@@ -273,7 +277,7 @@ public class AVLTree extends BSTree {
         if (ans == null)
             return null;
         if (exact)
-            return ans.key == key ? ans : null;
+            return ans.key == k ? ans : null;
         return ans;
     }
 
@@ -356,16 +360,22 @@ public class AVLTree extends BSTree {
 
     public static void main(String[] args) {
         AVLTree temp = new AVLTree();
-        temp.Insert(5, 0, 5);
-        temp.Insert(3, 0, 3);
-        temp.Insert(7, 0, 7);
-        temp.Insert(2, 0, 2);
-        temp.Insert(4, 0, 4);
-        temp.Insert(1, 0, 1);
-        temp.Insert(6, 0, 6);
-        temp.Insert(8, 0, 8);
-        AVLTree d = new AVLTree(1, 0, 1);
-        temp.Delete(d);
+        // temp.Insert(5, 0, 5);
+        // temp.Insert(3, 0, 3);
+        // temp.Insert(7, 0, 7);
+        // temp.Insert(2, 0, 2);
+        // temp.Insert(4, 0, 4);
+        // temp.Insert(1, 0, 1);
+        // temp.Insert(6, 0, 6);
+        // temp.Insert(8, 0, 8);
+        // AVLTree d = new AVLTree(1, 0, 1);
+        // temp.Delete(d);
+        temp.Insert(0, 10, 0);
+        temp.Insert(10, 10, 10);
+        temp.right.printLevelOrder();
+        System.out.println();
+        temp.Insert(20, 10, 20);
+
         temp.right.printLevelOrder();
         // int count = 0;
         // for (AVLTree d = temp.getFirst(); d != null; d = d.getNext())
