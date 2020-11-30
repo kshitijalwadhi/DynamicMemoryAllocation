@@ -120,12 +120,12 @@ public class AVLTree extends BSTree {
     private AVLTree balance(AVLTree node) {
 
         if (balanceFactor(node) == -2) {
-            if (balanceFactor(node.left) < 0)
+            if (balanceFactor(node.left) <= 0)
                 return leftLeft(node);
             else
                 return leftRight(node);
         } else if (balanceFactor(node) == 2) {
-            if (balanceFactor(node.right) > 0)
+            if (balanceFactor(node.right) >= 0)
                 return rightRight(node);
             else
                 return rightLeft(node);
@@ -383,10 +383,6 @@ public class AVLTree extends BSTree {
 
     private boolean heightSanity(AVLTree node) {
         if (node == null)
-            return true;
-        if (checkSentinel(node))
-            return true;
-        if (node.left == null && node.right == null)
             return true;
         if (balanceFactor(node) > -2 && balanceFactor(node) < 2 && heightSanity(node.left) && heightSanity(node.right))
             return true;

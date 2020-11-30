@@ -7,7 +7,7 @@ public class A2Driver {
     public static void main(String args[]) throws IOException {
         long startTime = System.nanoTime();
         File myObj = new File("./test101.txt");
-        FileWriter fw = new FileWriter("./hugeoutavl.txt");
+        FileWriter fw = new FileWriter("./hugeout.txt");
         Scanner sc = new Scanner(myObj);
         int numTestCases;
         numTestCases = sc.nextInt();
@@ -39,6 +39,8 @@ public class A2Driver {
                 }
                 // if (obj.freeBlk.sanity() == false || obj.allocBlk.sanity() == false) {
                 // System.out.println("sanity broke");
+                // System.out.println(numTestCases + ", " + numCommands);
+                // break;
                 // }
                 if (result != -5) {
                     String str = String.valueOf(result);
